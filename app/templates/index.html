@@ -1,8 +1,22 @@
 ﻿<html>
   <head>
-    <title>{{ title }} - microblog</title>
+    <title>{{ title }} - GIB2 Prosjekt</title>
+	<link rel="stylesheet" href="../static/css/leaflet_1.0.3.css" />
+	<link rel="stylesheet" href="../static/css/styles.css" />
+	<script src="../static/js/leaflet_1.0.3.js"></script>
+	<script src="../static/js/map_init.js"></script>
   </head>
   <body>
-      <h1>Hello, {{ user.nickname }}!</h1>
+    <h1>GIB2 Prosjekt</h1>
+	<h2>Kjente steder</h2>
+	<select id="sites">
+	  <option>Velg sted...</option>
+	  {% for site in sites %}
+		<option onclick="showSiteOnMap('{{site.name}}', '{{site.category}}', '{{site.coordinates[0]}}', '{{site.coordinates[1]}}');">{{site.name}} ({{site.category}})</option>
+	  {% endfor %}
+	</select>
+	<p />
+	<div id="map"></div>
+	<script>initMap()</script>
   </body>
 </html>

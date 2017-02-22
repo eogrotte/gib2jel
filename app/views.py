@@ -5,7 +5,11 @@ from app import app
 @app.route('/index')
 def index():
     #return "Hello, World!"
-    user = {'nickname': 'Miguel'}  # fake user
+    sites = []
+    sites.append({'category': 'sight', 'name': 'Nidarosdomen', 'coordinates': [63.4269, 10.3969]})
+    sites.append({'category': 'sight', 'name': 'Kristiansten Festning', 'coordinates':  [63.426935, 10.411155]})
+    sites.append({'category': 'sight', 'name': 'Ringve Museum', 'coordinates': [63.447369, 10.454401]})
+
     return render_template('index.html',
-                           title='Home',
-                           user=user)
+                           title = 'GIB2 Prosjekt',
+						   sites = sites)
