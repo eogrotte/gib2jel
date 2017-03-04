@@ -32,5 +32,4 @@ function showSiteOnMap(name, category, lon, lat) {
 	var marker = L.marker([lon, lat]).addTo(map);
 	marker.bindPopup("<b>" + name + "</b> (" + category + ")").openPopup();
 
-
 }
