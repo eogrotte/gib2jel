@@ -49,7 +49,7 @@ function initMap() {
 		layer: markersLayer,
 		position: 'topright',
 		initial: false,
-		zoom: 13,
+		zoom: 14,
 		marker: false,
 		// buildTip: customTip,
 		autoType: false
@@ -71,7 +71,22 @@ function initMap() {
 	// -----------------------------------------------------------------------------------------------------------------
 	// Adds custom admin control (top left), not implemented
 	// -----------------------------------------------------------------------------------------------------------------
-	map.addControl(new adminControl());
+	// map.addControl(new adminControl());
+
+	buildMapButtonInteractions();
+}
+
+function buildMapButtonInteractions() {
+	console.log("buildMapButtonInteractions invoked");
+	$("#admin-header").on("click", function(event) {
+		$("#getshortestpath-interior").hide();
+		$("#admin-interior").toggle();
+	});
+
+	$("#getshortestpath-header").on("click", function(event) {
+		$("#admin-interior").hide();
+		$("#getshortestpath-interior").toggle();
+	});
 }
 
 function showSiteOnMap(name, category, lon, lat) {

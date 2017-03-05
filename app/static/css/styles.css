@@ -1,21 +1,26 @@
-body {
-    padding: 0;
-    margin: 0;
-}
-
-
 #map {
 	height: 100%;
     width: 100%;
 }
 
-.panel-group,
-.panel-group .panel-left,
-.panel-group .panel-left .panel-heading,
-.panel-group .panel-left .panel-heading .panel-title,
-.panel-group .panel-left .panel-body  {
-	display: inline-block;
-	width: 250px;
-	// height: 35px;
+.mapbox {
+    position: relative;
 }
 
+.mapbox .overlay {
+	width: 250px;
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    z-index: 314159;
+    pointer-events: none;
+}
+
+.mapbox .overlay .btn {
+    pointer-events: initial;
+}
+
+.btn {
+	width: 250px;
+	text-align: left;
+}
