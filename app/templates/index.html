@@ -1,22 +1,35 @@
 ﻿<html>
   <head>
     <title>{{ title }} - GIB2 Prosjekt</title>
-	<link rel="stylesheet" href="../static/css/leaflet_1.0.3.css" />
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../static/css/leaflet-1.0.3.css" />
 	<link rel="stylesheet" href="../static/css/styles.css" />
-	<script src="../static/js/leaflet_1.0.3.js"></script>
+	<script src="../static/js/jquery-3.1.1.min.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<script src="../static/js/leaflet-1.0.3.js"></script>
 	<script src="../static/js/map_init.js"></script>
   </head>
-  <body>
-    <h1>GIB2 Prosjekt</h1>
-	<h2>Kjente steder</h2>
-	<select id="sites">
-	  <option>Velg sted...</option>
-	  {% for site in sites %}
-		<option onclick="showSiteOnMap('{{site.name}}', '{{site.category}}', '{{site.coordinates[0]}}', '{{site.coordinates[1]}}');">{{site.name}} ({{site.category}})</option>
-	  {% endfor %}
-	</select>
-	<p />
-	<div id="map"></div>
-	<script>initMap()</script>
+  <body>	
+	<div id="map">
+		<!--
+		<div id="accordionLeft" class="panel-group">
+			<div id="admin" class='leaflet-bar leaflet-control leaflet-control-custom'>
+				<div class="panel panel-default panel-left">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordionLeft" href="#collapseOne">Administrer kjente steder</a>
+						</h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse">
+						<div class="panel-body">
+							<p>Her kommer administrasjon av steder...</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		-->
+	</div>
+	<script>initMap()</script
   </body>
 </html>

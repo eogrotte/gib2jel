@@ -1,0 +1,92 @@
+﻿<html>
+  <head>
+    <title>{{ title }} - GIB2 Prosjekt</title>
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../static/css/leaflet-1.0.3.css" />
+	<link rel="stylesheet" href="../static/css/styles.css" />
+	<script src="../static/js/jquery-3.1.1.min.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<script src="../static/js/leaflet-1.0.3.js"></script>
+	<script src="../static/js/map_init.js"></script>
+  </head>
+  <body>	
+	<div id="map"></div>
+	<!--<div class="container-fluid">
+	  <div class="row-fluid">
+		<div class="span12">-->
+			<div id="divmap">
+				<div id="map"></div>
+				<div id="map-overlay" class="leaflet-top leaflet-left">
+				  
+					<!--<div class="leaflet-top leaflet-left">-->
+					<div id="accordionLeft" class="panel-group">
+						<div class="panel panel-default panel-left">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordionLeft" href="#collapseOne">Administrer kjente steder</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse">
+								<div class="panel-body">
+									<p>Her kommer administrasjon av steder...</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordionLeft" href="#collapseTwo">List kjente steder</a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="dropdown">
+										<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+											Kjente steder
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										  {% for site in sites %}
+											<li onclick="showSiteOnMap('{{site.name}}', '{{site.category}}', '{{site.coordinates[0]}}', '{{site.coordinates[1]}}');"><a href="#">{{site.name}} ({{site.category}})</a></li>
+										  {% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordionLeft" href="#collapseThree">Søk etter sted</a>
+								</h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse">
+								<div class="panel-body">
+									<p>Her kommer søk etter sted...</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordionLeft" href="#collapseFour">Finn raskeste veg</a>
+								</h4>
+							</div>
+							<div id="collapseFour" class="panel-collapse collapse">
+								<div class="panel-body">
+									<p>Her kommer finn raskeste veg...</p>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+				</div>
+			</div> 
+			<!--
+		 </div>
+	   </div>
+	</div>-->
+
+	<script>initMap()</script
+  </body>
+</html>

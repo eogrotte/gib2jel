@@ -1,1 +1,21 @@
-#map { height: 400px; }
+body {
+    padding: 0;
+    margin: 0;
+}
+
+
+#map {
+	height: 100%;
+    width: 100%;
+}
+
+.panel-group,
+.panel-group .panel-left,
+.panel-group .panel-left .panel-heading,
+.panel-group .panel-left .panel-heading .panel-title,
+.panel-group .panel-left .panel-body  {
+	display: inline-block;
+	width: 250px;
+	// height: 35px;
+}
+
