@@ -25,7 +25,7 @@ function initMap() {
 	
 	// Adds layer to map
 	map.addLayer(osmTileLayer);
-	
+
 	map.addControl(new adminControl());
 	map.addControl(new searchSiteControl());
 }
@@ -36,11 +36,11 @@ function showSiteOnMap(name, category, lon, lat) {
 }
 
 var adminControl = L.Control.extend({
- 
+
   options: {
-    position: 'topleft' 
+    position: 'topleft'
   },
- 
+
   onAdd: function (map) {
 	  console.log("onAdd admin invoked");
 
@@ -62,21 +62,21 @@ var adminControl = L.Control.extend({
 								"</div>" +
 							"</div>" +
 						"</div>";
- 
+
     container.onclick = function(){
       console.log('buttonClicked');
     }
     return container;
   },
- 
+
 });
 
 var searchSiteControl = L.Control.extend({
- 
+
   options: {
-    position: 'topleft' 
+    position: 'topleft'
   },
- 
+
   onAdd: function (map) {
 	  console.log("onAdd searchSite invoked");
     var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
@@ -96,11 +96,11 @@ var searchSiteControl = L.Control.extend({
 								"</div>" +
 							"</div>" +
 						"</div>";
- 
+
     container.onclick = function(){
       console.log('buttonClicked');
     }
     return container;
   },
- 
+
 });
