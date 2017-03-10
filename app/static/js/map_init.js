@@ -71,7 +71,7 @@ function initMap() {
 	// -----------------------------------------------------------------------------------------------------------------
 	// Adds custom admin control (top left), not implemented
 	// -----------------------------------------------------------------------------------------------------------------
-	// map.addControl(new adminControl());
+	map.addControl(new adminControl());
 
 	buildMapButtonInteractions();
 }
@@ -103,10 +103,39 @@ var adminControl = L.Control.extend({
   onAdd: function (map) {
   	console.log("onAdd admin invoked");
 
-    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+    var container = L.DomUtil.create('div', 'leaflet-control leaflet-control-custom');
+    // container.style.backgroundColor = 'white';
 	container.style.width = '250px';
 	container.style.height = '35px';
 
+	container.innerHTML =
+		"<div>" +
+			"Kategori: <select id='category'><option value='SIGHT'>Severdighet</option>" +
+		"<option value='RESTAURANT'>Restaurant</option>" +
+		"<option value='HOTEL'>Hotell</option></select><br />" +
+		"<span>Navn: <input id='name' type='text'></span><br />" +
+		"<span>Beskrivelse: <input id='description' type='text'></span><br />" +
+	    "<span>X: <input id='x' type='text'>Y: <input id='y' type='text'></span><br />" +
+		"<button id='save'>Lagre</button></div>";
+
+	$("#save").on("click", function() {
+		console.log('add clicked');
+    });
+
+	/*
+	container.loadTemplate(
+	  //Specify the template container (or file name of external template)
+	  $('#adminTemplate'),
+
+	  //Specify the data to render
+	  {
+		name: "Luke",
+		power: "force"
+	  }
+	);
+	*/
+
+	/*
 	container.innerHTML = "<div id='accordionLeft' class='panel-group'>" +
 						"<div class='panel panel-default panel-left'>" +
 							"<div class='panel-heading'>" +
@@ -120,10 +149,9 @@ var adminControl = L.Control.extend({
 								"</div>" +
 							"</div>" +
 						"</div>";
+	*/
 
-    container.onclick = function(){
-      console.log('buttonClicked');
-    }
+
     return container;
   },
 

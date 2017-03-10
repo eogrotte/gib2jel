@@ -162,6 +162,8 @@ span.psw {
     </div>
 
     <!-- MAP -->
+    <div id="map"></div>
+    <!--
     <div class="container-fluid">
         <div class="mapbox">
             <div class="row-fluid some" id="map"></div>
@@ -191,6 +193,7 @@ span.psw {
             </div>
         </div>
     </div>
+    -->
 	<script>initMap()</script>
 
 <script>
@@ -203,6 +206,13 @@ span.psw {
             modal.style.display = "none";
         }
     }
+</script>
+
+<script id="adminTemplate" type="text/html">
+  <p>
+    Use the <strong data-content="power"></strong>,
+    <span data-content="name"></span>!
+  </p>
 </script>
 
   </body>
