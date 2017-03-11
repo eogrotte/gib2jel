@@ -7,7 +7,7 @@ function initMap() {
 	// Initializes map
 	// -----------------------------------------------------------------------------------------------------------------
 	map = L.map('map');
-	
+
 	// Sets view
 	map.setView(new L.LatLng(63.4269, 10.3969), 13);
 
@@ -74,6 +74,7 @@ function initMap() {
 	map.addControl(new adminControl());
 
 	buildMapButtonInteractions();
+
 }
 
 function buildMapButtonInteractions() {
