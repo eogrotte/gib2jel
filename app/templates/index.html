@@ -1,19 +1,22 @@
-﻿<html>
+﻿<!doctype html>
+<html lang="no">
   <head>
+    <meta charset="utf-8">
     <title>{{ title }} - GIB2 Prosjekt</title>
 	<link rel="stylesheet" href="../static/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="../static/css/leaflet-1.0.3.css" />
     <link rel="stylesheet" href="../static/css/leaflet-search.min.css" />
 	<link rel="stylesheet" href="../static/css/styles.css" />
 	<script src="../static/js/jquery-3.1.1.min.js"></script>
+    <!--<script src="../static/js/jquery.loadTemplate.js"></script>-->
+
 	<script src="../static/js/bootstrap.min.js"></script>
 	<script src="../static/js/leaflet-1.0.3.js"></script>
     <script src="../static/js/leaflet-search.min.js"></script>
 	<script src="../static/js/map_init.js"></script>
   </head>
 
-
-<body>
+  <body>
     <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 
     <div id="id01" class="modal">
@@ -44,58 +47,61 @@
     </div>
 
     <!-- MAP -->
-    <div id="map"></div>
     <!--
     <div class="container-fluid">
-        <div class="mapbox">
-            <div class="row-fluid some" id="map"></div>
-            <div class="row-fluid overlay">
-                <div class="span1">
-                    <button id="admin-header" class="btn btn-primary">Administrasjon av steder</button>
-                    <div id="admin-interior" class="left-interior" style="display: none;">
-                        <button type="button" class="btn btn-default btn-lg">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Legg til
-                        </button>
-                        <button type="button" class="btn btn-default btn-lg">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Endre
-                        </button>
-                        <button type="button" class="btn btn-default btn-lg">
-                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Fjern
-                        </button>
-                    </div>
-                </div>
-                <div class="span2">
-                    <button id="getshortestpath-header" class="btn btn-primary">Finn korteste vei</button>
-                    <div id="getshortestpath-interior" class="left-interior" style="display: none;">
-                        Fra-sted<input type="text">
-                        Til-sted<input type="text">
-                        <button onClick="alert('Her skal korteste vei beregnes...')">Beregn korteste vei</button>
-                    </div>
-                </div>
+        <div class="row-fluid">
+            <div class="span12 height-css">
+            -->
+                <div id="map"></div>
+    <!--
             </div>
         </div>
     </div>
     -->
+    <div id="admin-add">
+        <button id="admin-add-header" class="spanbtn btn-primary">Legg til sted</button>
+        <div id="admin-add-interior" class="left-interior" style="display: none;">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Kategori
+                    <span class="caret"></span>
+                </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">Severdighet</a></li>
+                    <li><a href="#">Mat</a></li>
+                    <li><a href="#">Overnatting</a></li>
+                </ul>
+            </div>
+
+            <span><input id="name" type="text" placeholder="Navn"></span><br />
+            <span><input id="description" type="text" placeholder="Beskrivelse"></span><br />
+            <span><input id="x" type="text" placeholder="x"><input id="y" type="text" placeholder="y"></span><br />
+            <button id="admin-add-btn">Lagre</button>
+        </div>
+    </div>
+    <!--
+    <div id="shortestpath">
+        <button id="shortestpath-header" class="btn btn-primary">Finn korteste vei</button>
+        <div id="shortestpath-interior" class="left-interior" style="display: none;">
+            Fra-sted<input type="text">
+            Til-sted<input type="text">
+            <button onClick="alert('Her skal korteste vei beregnes...')">Beregn korteste vei</button>
+        </div>
+    </div>
+    -->
+
 	<script>initMap()</script>
 
-<script>
-    // Init
-    var modal = document.getElementById('id01');
+    <script>
+        // Init
+        var modal = document.getElementById('id01');
 
-    // Lukk passord-boks hvis bruker klikker utenfor boksen.
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        // Lukk passord-boks hvis bruker klikker utenfor boksen.
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
-    }
-</script>
-
-<script id="adminTemplate" type="text/html">
-  <p>
-    Use the <strong data-content="power"></strong>,
-    <span data-content="name"></span>!
-  </p>
-</script>
-
+    </script>
   </body>
 </html>

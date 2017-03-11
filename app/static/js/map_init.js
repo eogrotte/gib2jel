@@ -71,7 +71,7 @@ function initMap() {
 	// -----------------------------------------------------------------------------------------------------------------
 	// Adds custom admin control (top left), not implemented
 	// -----------------------------------------------------------------------------------------------------------------
-	map.addControl(new adminControl());
+	map.addControl(new adminAddControl());
 
 	buildMapButtonInteractions();
 
@@ -79,14 +79,14 @@ function initMap() {
 
 function buildMapButtonInteractions() {
 	console.log("buildMapButtonInteractions invoked");
-	$("#admin-header").on("click", function(event) {
-		$("#getshortestpath-interior").hide();
-		$("#admin-interior").toggle();
+	$("#admin-add-header").on("click", function(event) {
+		$("#shortestpath-interior").hide();
+		$("#admin-add-interior").toggle();
 	});
 
-	$("#getshortestpath-header").on("click", function(event) {
-		$("#admin-interior").hide();
-		$("#getshortestpath-interior").toggle();
+	$("#shortestpath-header").on("click", function(event) {
+		$("#admin-add-interior").hide();
+		$("#shortestpath-interior").toggle();
 	});
 }
 
@@ -95,7 +95,7 @@ function showSiteOnMap(name, category, lon, lat) {
 	marker.bindPopup("<b>" + name + "</b> (" + category + ")").openPopup();
 }
 
-var adminControl = L.Control.extend({
+var adminAddControl = L.Control.extend({
 
   options: {
     position: 'topleft'
@@ -104,57 +104,29 @@ var adminControl = L.Control.extend({
   onAdd: function (map) {
   	console.log("onAdd admin invoked");
 
-    var container = L.DomUtil.create('div', 'leaflet-control leaflet-control-custom');
-    // container.style.backgroundColor = 'white';
-	container.style.width = '250px';
-	container.style.height = '35px';
+    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+    container.style.backgroundColor = 'white';
+	// container.style.width = '250px';
+	// container.style.height = '25px';
 
-	container.innerHTML =
-		"<div>" +
-			"Kategori: <select id='category'><option value='SIGHT'>Severdighet</option>" +
-		"<option value='RESTAURANT'>Restaurant</option>" +
-		"<option value='HOTEL'>Hotell</option></select><br />" +
-		"<span>Navn: <input id='name' type='text'></span><br />" +
-		"<span>Beskrivelse: <input id='description' type='text'></span><br />" +
-	    "<span>X: <input id='x' type='text'>Y: <input id='y' type='text'></span><br />" +
-		"<button id='save'>Lagre</button></div>";
+	var $adminAddTarget = $("#admin-add").detach();
 
-	$("#save").on("click", function() {
-		console.log('add clicked');
+	// console.log($adminAddTarget.html());
+	container.innerHTML = $adminAddTarget.html();
+
+	/*
+	var addButton = L.DomUtil.get("#admin-add-btn");
+	 L.DomEvent.addListener(addButton, "click", function() {
+		console.log("add clicked");
     });
-
-	/*
-	container.loadTemplate(
-	  //Specify the template container (or file name of external template)
-	  $('#adminTemplate'),
-
-	  //Specify the data to render
-	  {
-		name: "Luke",
-		power: "force"
-	  }
-	);
-	*/
-
-	/*
-	container.innerHTML = "<div id='accordionLeft' class='panel-group'>" +
-						"<div class='panel panel-default panel-left'>" +
-							"<div class='panel-heading'>" +
-								"<h4 class='panel-title'>" +
-									"<a data-toggle='collapse' data-parent='#accordionLeft' href='#collapseOne'>Admin</a>" +
-								"</h4>" +
-							"</div>" +
-							"<div id='collapseOne' class='panel-collapse collapse'>" +
-								"<div class='panel-body'>" +
-									"<p>Her kommer administrasjon av steder...</p>" +
-								"</div>" +
-							"</div>" +
-						"</div>";
-	*/
-
+    */
 
     return container;
   },
+
+  onRemove: function (map) {
+ 	// L.DomEvent.off()
+  }
 
 });
 
