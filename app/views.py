@@ -14,3 +14,7 @@ def index():
     return render_template('index.html',
                            title = 'GIB2 Prosjekt',
 						   sites = sites)
+
+@app.route('/addSite', methods=['POST'])
+def addSite():
+    return "ok"

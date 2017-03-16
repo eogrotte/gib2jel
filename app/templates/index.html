@@ -3,17 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>{{ title }} - GIB2 Prosjekt</title>
+
+    <!-- CSS -->
 	<link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/css/semantic.css" />
 	<link rel="stylesheet" href="../static/css/leaflet-1.0.3.css" />
     <link rel="stylesheet" href="../static/css/leaflet-search.min.css" />
 	<link rel="stylesheet" href="../static/css/styles.css" />
-	<script src="../static/js/jquery-3.1.1.min.js"></script>
-    <!--<script src="../static/js/jquery.loadTemplate.js"></script>-->
 
+    <!-- JS -->
+	<script src="../static/js/jquery-3.1.1.min.js"></script>
 	<script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/semantic.js"></script>
 	<script src="../static/js/leaflet-1.0.3.js"></script>
     <script src="../static/js/leaflet-search.min.js"></script>
-	<script src="../static/js/map_init.js"></script>
+	<script src="../static/js/map-init.service.js"></script>
+    <script src="../static/js/site.service.js"></script>
   </head>
 
   <body>
@@ -58,27 +63,33 @@
         </div>
     </div>
     -->
-    <div id="admin-add">
-        <button id="admin-add-header" class="spanbtn btn-primary">Legg til sted</button>
-        <div id="admin-add-interior" class="left-interior" style="display: none;">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Kategori
-                    <span class="caret"></span>
-                </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Severdighet</a></li>
-                    <li><a href="#">Mat</a></li>
-                    <li><a href="#">Overnatting</a></li>
-                </ul>
-            </div>
 
-            <span><input id="name" type="text" placeholder="Navn"></span><br />
-            <span><input id="description" type="text" placeholder="Beskrivelse"></span><br />
-            <span><input id="x" type="text" placeholder="x"><input id="y" type="text" placeholder="y"></span><br />
-            <button id="admin-add-btn">Lagre</button>
+    <script type="text/template" id="admin-template">
+        <div class="ui styled accordion leaflet-control" style="width: 200px">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Legg til sted
+            </div>
+            <div class="content">
+                <div class="ui selection dropdown">
+                    <input id="category" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Kategori</div>
+                    <div class="menu">
+                        <div class="item" data-value="sight">Severdighet</div>
+                        <div class="item" data-value="food">Spisested</div>
+                        <div class="item" data-value="accommodation">Overnatting</div>
+                    </div>
+                </div>
+                <input id="name" class="ui input" type="text" placeholder="Navn"><br />
+                <input id="description" class="ui input" type="text" placeholder="Beskrivelse"><br />
+                <input id="x" class="ui input" type="text" placeholder="x"><input class="ui input" id="y" type="text" placeholder="y"><br />
+                <button id="admin-add-btn" class="ui button">Lagre</button><br />
+                <div id="status"></div>
+            </div>
         </div>
-    </div>
+    </script>
+
     <!--
     <div id="shortestpath">
         <button id="shortestpath-header" class="btn btn-primary">Finn korteste vei</button>
@@ -90,7 +101,9 @@
     </div>
     -->
 
-	<script>initMap()</script>
+	<script>
+        initMap();
+    </script>
 
     <script>
         // Init
@@ -102,6 +115,11 @@
                 modal.style.display = "none";
             }
         }
+
+        $(document).ready(function() {
+            $('.ui.accordion').accordion();
+            $('.ui.dropdown').dropdown();
+        });
     </script>
   </body>
 </html>

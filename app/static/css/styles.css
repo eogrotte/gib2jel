@@ -10,14 +10,23 @@ body {
     height: 100%;
 }
 
-.height-css
-{
-    height: 100%;
-}
-
+/*
 .btn {
 	width: 250px;
 	text-align: left;
+}
+*/
+
+/*
+.leaflet-control-admin-add {
+    backgroundColor: yellow;
+	width: 250px;
+}
+*/
+
+.leaflet-control-admin-add #name {
+    /* background-color: orange; */
+    /* height: 25px; */
 }
 
 input[type=text], input[type=password] {

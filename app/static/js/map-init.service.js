@@ -2,7 +2,7 @@ var map;
 
 function initMap() {
 	console.log("initMap invoked");
-	
+
 	// -----------------------------------------------------------------------------------------------------------------
 	// Initializes map
 	// -----------------------------------------------------------------------------------------------------------------
@@ -15,14 +15,14 @@ function initMap() {
 	// Adds an OpenStreetMap tile layer
 	// -----------------------------------------------------------------------------------------------------------------
 	var osmUrlTemplate = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-	
+
 	var tileLayerOptions = {};
 	tileLayerOptions.minZoom = 0; // default 0
 	tileLayerOptions.maxZoom = 18; // default 18
 	tileLayerOptions.attribution = "Map data © <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors";
-	
+
 	var osmTileLayer = L.tileLayer(osmUrlTemplate, tileLayerOptions);
-	
+
 	// Adds layer to map
 	map.addLayer(osmTileLayer);
 
@@ -69,12 +69,14 @@ function initMap() {
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
-	// Adds custom admin control (top left), not implemented
+	// Adds custom admin (top left), not implemented
 	// -----------------------------------------------------------------------------------------------------------------
-	map.addControl(new adminAddControl());
+	map.addControl(new adminControl());
 
+	// -----------------------------------------------------------------------------------------------------------------
+	// Builds map interactions
+	// -----------------------------------------------------------------------------------------------------------------
 	buildMapButtonInteractions();
-
 }
 
 function buildMapButtonInteractions() {
@@ -95,8 +97,7 @@ function showSiteOnMap(name, category, lon, lat) {
 	marker.bindPopup("<b>" + name + "</b> (" + category + ")").openPopup();
 }
 
-var adminAddControl = L.Control.extend({
-
+var adminControl = L.Control.extend({
   options: {
     position: 'topleft'
   },
@@ -104,29 +105,44 @@ var adminAddControl = L.Control.extend({
   onAdd: function (map) {
   	console.log("onAdd admin invoked");
 
-    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-    container.style.backgroundColor = 'white';
-	// container.style.width = '250px';
-	// container.style.height = '25px';
+	var adminHtml = $("#admin-template").html();
+	var $adminContainer = $(adminHtml);
 
-	var $adminAddTarget = $("#admin-add").detach();
+	var $addButton = $adminContainer.find("#admin-add-btn");
+	$addButton.on("click", function() {
+		alert("Nå skal det lagres!");
+		addSite();
+	});
 
-	// console.log($adminAddTarget.html());
-	container.innerHTML = $adminAddTarget.html();
-
-	/*
-	var addButton = L.DomUtil.get("#admin-add-btn");
-	 L.DomEvent.addListener(addButton, "click", function() {
-		console.log("add clicked");
-    });
-    */
-
-    return container;
+    return $adminContainer[0];
   },
 
   onRemove: function (map) {
  	// L.DomEvent.off()
   }
-
 });
+
+function addSite(site) {
+    console.log("addSite invoked");
+    var site = {};
+    site.category = $("#category").text();
+    site.name = $("#name").text();
+    site.description = $("#description").text();
+    site.x = $("#x").text();
+    site.y =  $("#y").text();
+
+    validateSite(site);
+
+    $.post('/addSite', site)
+		.done(function (status) {
+			$("#status").text("Sted er lagret, status: " + status);
+		})
+		.fail(function () {
+			$("#status").text("Feil ved lagring, status: " + status);
+		});
+}
+
+function validateSite(site) {
+	// TODO:
+}
 
