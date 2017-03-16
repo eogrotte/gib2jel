@@ -111,7 +111,7 @@ var adminControl = L.Control.extend({
 	var $addButton = $adminContainer.find("#admin-add-btn");
 	$addButton.on("click", function() {
 		alert("Nå skal det lagres!");
-		addSite();
+		GIB2.siteService.addSite();
 	});
 
     return $adminContainer[0];
@@ -122,27 +122,5 @@ var adminControl = L.Control.extend({
   }
 });
 
-function addSite(site) {
-    console.log("addSite invoked");
-    var site = {};
-    site.category = $("#category").text();
-    site.name = $("#name").text();
-    site.description = $("#description").text();
-    site.x = $("#x").text();
-    site.y =  $("#y").text();
 
-    validateSite(site);
-
-    $.post('/addSite', site)
-		.done(function (status) {
-			$("#status").text("Sted er lagret, status: " + status);
-		})
-		.fail(function () {
-			$("#status").text("Feil ved lagring, status: " + status);
-		});
-}
-
-function validateSite(site) {
-	// TODO:
-}
 
