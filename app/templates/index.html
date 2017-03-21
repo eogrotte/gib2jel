@@ -64,7 +64,7 @@
     </div>
     -->
 
-    <script type="text/template" id="admin-template">
+    <script type="text/template" id="templateAdmin">
         <div class="ui styled accordion leaflet-control" style="width: 200px">
             <div class="title">
                 <i class="dropdown icon"></i>
@@ -84,26 +84,38 @@
                 <input id="name" class="ui input" type="text" placeholder="Navn"><br />
                 <input id="description" class="ui input" type="text" placeholder="Beskrivelse"><br />
                 <input id="x" class="ui input" type="text" placeholder="x"><input class="ui input" id="y" type="text" placeholder="y"><br />
-                <button id="admin-add-btn" class="ui button">Lagre</button><br />
-                <div id="status"></div>
+                <button id="adminAddBtn" class="ui button">Lagre</button><br />
+                <div id="statusSite"></div>
+            </div>
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Eksisterende steder
+            </div>
+            <div class="content">
+                Her vil det bli mulig å se detajer på steder, endre og slette de...
             </div>
         </div>
     </script>
 
-    <!--
-    <div id="shortestpath">
-        <button id="shortestpath-header" class="btn btn-primary">Finn korteste vei</button>
-        <div id="shortestpath-interior" class="left-interior" style="display: none;">
-            Fra-sted<input type="text">
-            Til-sted<input type="text">
-            <button onClick="alert('Her skal korteste vei beregnes...')">Beregn korteste vei</button>
+    <script type="text/template" id="templateShortestPath">
+        <div class="ui styled accordion leaflet-control" style="width: 200px">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Finn korteste vei
+            </div>
+            <div class="content">
+                <input id="siteFrom" class="ui input" type="text" placeholder="Fra sted"><br />
+                <input id="siteTo" class="ui input" type="text" placeholder="Til sted"><br />
+                <button id="shortestPathBtn" class="ui button">Finn korteste vei</button>
+                <div id="statusPath"></div>
+            </div>
         </div>
-    </div>
-    -->
+    </script>
 
 	<script>
         window.GIB2 = window.GIB2 || {};
         GIB2.siteService = GIB2.siteService || {};
+        GIB2.pathService = GIB2.pathService || {};
         initMap();
     </script>
 

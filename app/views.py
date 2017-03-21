@@ -18,3 +18,7 @@ def index():
 @app.route('/addSite', methods=['POST'])
 def addSite():
     return "ok"
+
+@app.route('/shortestPath', methods=['POST'])
+def findShortestPath():
+    return "ok"

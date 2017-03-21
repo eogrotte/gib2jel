@@ -72,24 +72,7 @@ function initMap() {
 	// Adds custom admin (top left), not implemented
 	// -----------------------------------------------------------------------------------------------------------------
 	map.addControl(new adminControl());
-
-	// -----------------------------------------------------------------------------------------------------------------
-	// Builds map interactions
-	// -----------------------------------------------------------------------------------------------------------------
-	buildMapButtonInteractions();
-}
-
-function buildMapButtonInteractions() {
-	console.log("buildMapButtonInteractions invoked");
-	$("#admin-add-header").on("click", function(event) {
-		$("#shortestpath-interior").hide();
-		$("#admin-add-interior").toggle();
-	});
-
-	$("#shortestpath-header").on("click", function(event) {
-		$("#admin-add-interior").hide();
-		$("#shortestpath-interior").toggle();
-	});
+	map.addControl(new shortestPathControl());
 }
 
 function showSiteOnMap(name, category, lon, lat) {
@@ -105,16 +88,41 @@ var adminControl = L.Control.extend({
   onAdd: function (map) {
   	console.log("onAdd admin invoked");
 
-	var adminHtml = $("#admin-template").html();
+	var adminHtml = $("#templateAdmin").html();
 	var $adminContainer = $(adminHtml);
 
-	var $addButton = $adminContainer.find("#admin-add-btn");
+	var $addButton = $adminContainer.find("#adminAddBtn");
 	$addButton.on("click", function() {
 		alert("Nå skal det lagres!");
 		GIB2.siteService.addSite();
 	});
 
     return $adminContainer[0];
+  },
+
+  onRemove: function (map) {
+ 	// L.DomEvent.off()
+  }
+});
+
+var shortestPathControl = L.Control.extend({
+  options: {
+    position: 'topleft'
+  },
+
+  onAdd: function (map) {
+  	console.log("onAdd shortestpath invoked");
+
+	var shortestpathHtml = $("#templateShortestPath").html();
+	var $shortestpathContainer = $(shortestpathHtml);
+
+	var $addButton = $shortestpathContainer.find("#shortestPathBtn");
+	$addButton.on("click", function() {
+		alert("Nå skal korteste vei beregnes!");
+		GIB2.pathService.findShortestPath();
+	});
+
+    return $shortestpathContainer[0];
   },
 
   onRemove: function (map) {

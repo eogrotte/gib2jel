@@ -11,9 +11,9 @@ GIB2.siteService = {
             x: $("#x").text(),
             y: $("#y").text()
         }).done(function (status) {
-            $("#status").text("Sted er lagret, status: " + status);
+            $("#statusSite").text("Sted er lagret, status: " + status);
         }).fail(function () {
-            $("#status").text("Feil ved lagring, status: " + status);
+            $("#statusSite").text("Feil ved lagring, status: " + status);
         });
     },
 
@@ -24,4 +24,4 @@ GIB2.siteService = {
     validateSite: function(site) {
     // TODO:
     }
-}
+};
