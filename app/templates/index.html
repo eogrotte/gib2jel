@@ -22,47 +22,22 @@
   </head>
 
   <body>
-    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+    <div id="map"></div>
 
-    <div id="id01" class="modal">
-
-      <form class="modal-content animate" action="/action_page.php">
-        <div class="imgcontainer">
-          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                   <A HREF = "https://no.wikipedia.org/wiki/Geomatikk#Studiemuligheter_i_Norge">Registrer bruker</A>
-
-        </div>
-
-        <div class="container">
-          <label><b>Brukernavn</b></label>
-          <input type="text" placeholder="Skriv brukernavn" name="uname" required>
-
-          <label><b>Passord</b></label>
-          <input type="password" placeholder="Skriv passord" name="psw" required>
-
-          <button type="submit">Login</button>
-          <input type="checkbox" checked="checked"> Remember me
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-          <span class="psw">Glemt <a href="#">passord?</a></span>
-        </div>
-      </form>
-    </div>
-
-    <!-- MAP -->
-    <!--
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span12 height-css">
-            -->
-                <div id="map"></div>
-    <!--
+    <script type="text/template" id="templateLogin">
+        <div class="ui styled accordion leaflet-control" style="width: 200px">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Logg inn
+            </div>
+            <div class="content">
+                <input id="username" class="ui input" type="text" placeholder="Brukernavn"><br />
+                <input id="password" class="ui input" type="text" placeholder="Passord"><br />
+                <button id="loginBtn" class="ui button">Logg på</button>
+                <div id="statusLogin"></div>
             </div>
         </div>
-    </div>
-    -->
+    </script>
 
     <script type="text/template" id="templateAdmin">
         <div class="ui styled accordion leaflet-control" style="width: 200px">
@@ -120,16 +95,6 @@
     </script>
 
     <script>
-        // Init
-        var modal = document.getElementById('id01');
-
-        // Lukk passord-boks hvis bruker klikker utenfor boksen.
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
         $(document).ready(function() {
             $('.ui.accordion').accordion();
             $('.ui.dropdown').dropdown();

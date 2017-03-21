@@ -69,8 +69,9 @@ function initMap() {
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
-	// Adds custom admin (top left), not implemented
+	// Adds custom controls
 	// -----------------------------------------------------------------------------------------------------------------
+	map.addControl(new loginControl());
 	map.addControl(new adminControl());
 	map.addControl(new shortestPathControl());
 }
@@ -79,6 +80,29 @@ function showSiteOnMap(name, category, lon, lat) {
 	var marker = L.marker([lon, lat]).addTo(map);
 	marker.bindPopup("<b>" + name + "</b> (" + category + ")").openPopup();
 }
+
+var loginControl = L.Control.extend({
+  options: {
+    position: 'topright'
+  },
+
+  onAdd: function (map) {
+	var loginHtml = $("#templateLogin").html();
+	var $loginContainer = $(loginHtml);
+
+	var $loginButton = $loginContainer.find("#loginBtn");
+	$loginButton.on("click", function() {
+		alert("Nå skal jeg logge inn!");
+		// GIB2.loginService.login();
+	});
+
+	return $loginContainer[0];
+  },
+
+  onRemove: function (map) {
+ 	// L.DomEvent.off()
+  }
+});
 
 var adminControl = L.Control.extend({
   options: {
