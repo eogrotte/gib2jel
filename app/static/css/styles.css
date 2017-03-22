@@ -10,19 +10,6 @@ body {
     height: 100%;
 }
 
-/*
-.btn {
-	width: 250px;
-	text-align: left;
-}
-*/
-
-/*
-.leaflet-control-admin-add {
-    backgroundColor: yellow;
-	width: 250px;
-}
-*/
 
 .leaflet-control-admin-add #name {
     /* background-color: orange; */
@@ -48,13 +35,3 @@ button {
     cursor: pointer;
     width: 100%;
 }
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-}
-
-
-
