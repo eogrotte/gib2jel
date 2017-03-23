@@ -96,6 +96,11 @@ var loginControl = L.Control.extend({
 		// GIB2.loginService.login();
 	});
 
+	var $registerButton = $loginContainer.find("#createUser");
+	$registerButton.on("click", function(){
+		alert("Nå skal bruker registreres eller avvises pga opptatt brukernavn");
+	});
+
 	return $loginContainer[0];
   },
 

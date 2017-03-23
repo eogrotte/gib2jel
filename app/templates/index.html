@@ -25,7 +25,7 @@
     <div id="map"></div>
 
     <script type="text/template" id="templateLogin">
-        <div class="ui styled accordion leaflet-control" style="width: 200px">
+        <div class="ui styled accordion leaflet-control" style="width: 240px">
             <div class="title">
                 <i class="dropdown icon"></i>
                 Logg inn
@@ -34,9 +34,18 @@
                 <input id="username" class="ui input" type="text" placeholder="Brukernavn"><br />
                 <input id="password" class="ui input" type="password" placeholder="Passord"><br />
                 <button id="loginBtn" class="ui button">Logg på</button>
-                <div id="statusLogin"></div>
             </div>
-        </div>
+            <div class="title">
+                <i class = "dropdown icon"></i> Registrer bruker
+                </div>
+            <div class="content">
+                    <input id="registerUsername" class="ui input" type="text" placeholder="Registrer brukernavn"><br/>
+                    <input id="registerPassword" class="ui input" type="password" placeholder="Passord"><br />
+                    <input id="confirmPassword" class="ui input" type="password" placeholder="Bekreft passord"><br />
+                    <button id="createUser" class="ui button">Registrer bruker</button>
+                </div>
+                <div id="statusLogin"></div>
+                </div>
     </script>
 
     <script type="text/template" id="templateAdmin">
