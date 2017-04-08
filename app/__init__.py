@@ -1,4 +1,10 @@
 from flask import Flask
+#from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-from app import views
+app.config.from_pyfile('config.py')
+
+# Creates db
+db = SQLAlchemy(app)
+from app import views, models

@@ -5,9 +5,9 @@ GIB2.siteService = {
     addSite: function () {
         console.log("addSite invoked");
         $.post('/addSite', {
-            category: $("#category").text(),
             name: $("#name").text(),
-            description: $("#description").text(),
+            category: $("#category").text(),
+            description: $("#description").text()
             x: $("#x").text(),
             y: $("#y").text()
         }).done(function (status) {
