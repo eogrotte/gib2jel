@@ -121,8 +121,8 @@ var adminControl = L.Control.extend({
 	var $adminContainer = $(adminHtml);
 
 	var $addButton = $adminContainer.find("#adminAddBtn");
-	$addButton.on("click", function() {
-		alert("Nå skal det lagres!");
+	$addButton.on("click", function(event) {
+		// alert("Nå skal det lagres!");
 		GIB2.siteService.addSite();
 	});
 

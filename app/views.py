@@ -1,5 +1,7 @@
-from flask import render_template
+from flask import render_template, request, json, abort
 from app import app
+from app import db
+from app.models import Site
 
 @app.route('/')
 @app.route('/index')
@@ -17,7 +19,15 @@ def index():
 
 @app.route('/addSite', methods=['POST'])
 def addSite():
-    return "ok"
+    if not request.json or not 'name' in request.json:
+        abort(400)
+    site = request.json
+
+    siteDb = Site(site['name'], site['category'], site['description'])
+    db.session.add(siteDb)
+    db.session.commit()
+    #return 'ok'
+    return json.dumps({'success': True, 'name': site['name']}), 200, {'ContentType': 'application/json'}
 
 @app.route('/shortestPath', methods=['POST'])
 def findShortestPath():

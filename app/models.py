@@ -1,21 +1,16 @@
 from app import db
 
+#db.Model.metadata.reflect(db.engine)
+
 # Create our database model
 class Site(db.Model):
     __tablename__ = "sites"
-    #id = db.Column(db.Integer, primary_key=True)
+    __table_args__ = {'extend_existing': True}
     name = db.Column(db.String, primary_key=True)
-    category = db.Column(db.String, unique=False)
-    description = db.Column(db.String, unique=False)
+    category = db.Column(db.String)
+    description = db.Column(db.String)
 
-    def __init__(self, name):
+    def __init__(self, name, category, description):
         self.name = name
-
-    def __repr__(self):
-        return 'Navn %r>' % self.name
-
-    def __init__(self, category):
         self.category = category
-
-    def __repr__(self):
-        return 'Kateogri %r>' % self.category
+        self.description = description
