@@ -68,9 +68,21 @@ function initMap() {
 		markersLayer.addLayer(marker);
 	}
 
+	//Adds mouse-click-listener:
+	map.addEventListener('mousedown', function(ev) {
+   		var lat = ev.latlng.lat;
+   		var lng = ev.latlng.lng;
+
+   		console.log(lat);
+   		console.log(lng);
+   		document.getElementById("x").value = lat;
+		document.getElementById("y").value = lng;
+	});
+
 	// -----------------------------------------------------------------------------------------------------------------
 	// Adds custom controls
 	// -----------------------------------------------------------------------------------------------------------------
+
 	map.addControl(new loginControl());
 	map.addControl(new adminControl());
 	map.addControl(new shortestPathControl());
