@@ -41,15 +41,15 @@ GIB2.mapInitService = {
         // -------------------------------------------------------------------------------------------------------------
         // Adds mouse-click-listener
         // -------------------------------------------------------------------------------------------------------------
-        map.addEventListener('mousedown', function (ev) {
-            var lat = ev.latlng.lat;
-            var lng = ev.latlng.lng;
-
-            console.log(lat);
-            console.log(lng);
-            document.getElementById("x").value = lat;
-            document.getElementById("y").value = lng;
-        });
+        // map.addEventListener('mousedown', function (ev) {
+        //     var lat = ev.latlng.lat;
+        //     var lng = ev.latlng.lng;
+        //
+        //     console.log(lat);
+        //     console.log(lng);
+        //     document.getElementById("x").value = lat;
+        //     document.getElementById("y").value = lng;
+        // });
     },
 
     /**
@@ -127,11 +127,33 @@ GIB2.mapInitService = {
                 var adminHtml = $("#templateAdmin").html();
                 var $adminContainer = $(adminHtml);
 
+                var $hideXButton = $adminContainer.find("#x");
+                $hideXButton.hide();
+                //$("#y").hide();
+
                 var $addButton = $adminContainer.find("#adminAddBtn");
                 $addButton.on("click", function (event) {
                     // alert("Nå skal det lagres!");
                     GIB2.siteService.addSite();
                 });
+
+                var $coordButton = $adminContainer.find("#adminFindCoord");
+                $coordButton.on("click", function () {
+                    alert("Trykk på punktet ditt i kartet, og trykk deretter på lagre-knappen for å lagre punktet ditt." +
+                        " Hvis du trykker på feil punkt i kartet, kan du trykke på velg punkt-koordinater igjen.");
+                    map.addOneTimeEventListener('mousedown', function (ev) {
+                        var lat = ev.latlng.lat;
+                        var lng = ev.latlng.lng;
+
+                        console.log(lat);
+                        console.log(lng);
+                        document.getElementById("x").value = lat;
+                        document.getElementById("y").value = lng;
+                        });
+                    $("#x").prop('disabled', true);
+                    $("#y").prop('disabled', true);
+                });
+
 
                 return $adminContainer[0];
             },
@@ -142,6 +164,13 @@ GIB2.mapInitService = {
         });
 
         map.addControl(new adminControl());
+
+        var adminHtml = $("#templateAdmin").html();
+        var $adminContainer = $(adminHtml);
+        var $hideXButton = $adminContainer.find("#x");
+
+        $("#x").prop('disabled', true);
+        $("#y").prop('disabled', true);
     },
 
     /**
