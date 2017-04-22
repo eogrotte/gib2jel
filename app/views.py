@@ -38,6 +38,12 @@ def get_sites():
     # query = Site.query.all()
     return json.dumps([ row._asdict() for row in query ])
 
+@app.route('/sites/delete/<name>', methods=['GET'])
+def delete_sites(name):
+    db.session.query(Site).filter(Site.name == name).delete()
+    db.session.commit()
+    return name
+
 @app.route('/shortestPath', methods=['POST'])
 def find_shortest_path():
     return "ok"

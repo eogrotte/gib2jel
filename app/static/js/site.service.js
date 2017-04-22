@@ -57,10 +57,26 @@ GIB2.siteService = {
             // dataType: "text",
             contentType: 'application/json;charset=UTF-8'
         }).done(function (status) {
-            $("#statusSite").addClass(statusInfo);
+            $("#statusSite").addClass("statusInfo");
             $("#statusSite").text("Sted er lagret, status: " + status);
         }).fail(function () {
             $("#statusSite").text("Feil ved lagring, status: " + status);
+        });
+    },
+
+    deleteSite: function(name) {
+        $.ajax({
+            type: 'GET',
+            url: '/sites/delete/' + name
+            // data: JSON.stringify(site),
+            // dataType: "text",
+            // contentType: 'application/json;charset=UTF-8'
+        }).done(function (status) {
+            $("#statusDeleteSite").addClass("statusInfo");
+            $("#statusDeleteSite").text("Sted er slettet, status: " + status);
+        }).fail(function () {
+            $("#statusDeleteSite").addClass("statusError");
+            $("#statusDeleteSite").text("Feil ved sletting, status: " + status);
         });
     },
 

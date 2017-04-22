@@ -154,6 +154,12 @@ GIB2.mapInitService = {
                     $("#y").prop('disabled', true);
                 });
 
+                var $deleteButton = $adminContainer.find("#adminDeleteBtn");
+                $deleteButton.on("click", function (event) {
+                    // alert("Nå skal det lagres!");
+                    var name = $("#nameDelete").val();
+                    GIB2.siteService.deleteSite(name);
+                });
 
                 return $adminContainer[0];
             },
@@ -242,16 +248,6 @@ GIB2.mapInitService = {
                     marker.bindPopup("<b>" + title + "</b> (" + category + ")");
                     markersLayerGroup.addLayer(marker);
                 });
-
-                /*
-                                $.each(sitesAsJson, function (index, site) {
-                    var location = [site.x, site.y];
-                    var marker = new L.Marker(new L.latLng(location), {title: site.name});
-                    marker.bindPopup("<b>" + site.name + "</b> (" + site.category + ")");
-                    markersLayerGroup.addLayer(marker);
-                });
-                 */
-
             });
     }
 }
