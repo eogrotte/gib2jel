@@ -46,3 +46,21 @@ button {
     cursor: pointer;
     width: 100%;
 }
+
+.statusError {
+
+    color: red
+
+}
+
+.statusWarning {
+
+    color: orange
+
+}
+
+.statusInfo {
+
+    color: green
+
+}
