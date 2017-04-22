@@ -10,6 +10,17 @@ body {
     height: 100%;
 }
 
+.statusError {
+    color: red
+}
+
+.statusWarning {
+    color: orange
+}
+
+.statusInfo {
+    color: green
+}
 
 .leaflet-control-admin-add #name {
     /* background-color: orange; */
