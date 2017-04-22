@@ -21,16 +21,6 @@ GIB2.siteService = {
 
         console.log("site: " + JSON.stringify(site));
 
-        /*
-        $.post('/addSite', { site: JSON.stringify(site)
-        }).done(function (status) {
-            $("#statusSite").text("Sted er lagret, status: " + status);
-        }).fail(function () {
-            $("#statusSite").text("Feil ved lagring, status: " + status);
-        });
-        */
-
-
         $.ajax({
             type: 'POST',
             url: '/addSite',

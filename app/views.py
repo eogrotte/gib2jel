@@ -6,7 +6,6 @@ from app.models import Site
 @app.route('/')
 @app.route('/index')
 def index():
-    #return "Hello, World!"
     sites = []
     sites.append({'category': 'sight', 'name': 'Nidarosdomen', 'coordinates': [63.4269, 10.3969]})
     sites.append({'category': 'sight', 'name': 'Kristiansten Festning', 'coordinates':  [63.426935, 10.411155]})
@@ -18,7 +17,7 @@ def index():
 						   sites = sites)
 
 @app.route('/addSite', methods=['POST'])
-def addSite():
+def add_site():
     if not request.json or not 'name' in request.json:
         abort(400)
     site = request.json
@@ -30,5 +29,5 @@ def addSite():
     return json.dumps({'success': True, 'name': site['name']}), 200, {'ContentType': 'application/json'}
 
 @app.route('/shortestPath', methods=['POST'])
-def findShortestPath():
+def find_shortest_path():
     return "ok"
