@@ -9,8 +9,8 @@ GIB2.siteService = {
         console.log("name: " + name);
         category = $("#category").val();
         description = $("#description").val();
-        x = $("#x").text();
-        y = $("#y").text();
+        x = $("#x").val();
+        y = $("#y").val();
         site = {
             name: name,
             category: category,
@@ -31,6 +31,43 @@ GIB2.siteService = {
             $("#statusSite").text("Sted er lagret, status: " + status);
         }).fail(function () {
             $("#statusSite").text("Feil ved lagring, status: " + status);
+        });
+    },
+
+     /**
+     * Retrieves sites for category
+     */
+    getSitesForCategoryAndSearchString: function (category, searchstring) {
+        console.log("getSitesForCategory invoked");
+
+        $.ajax({
+            type: 'GET',
+            url: '/sites/' + category + '/' + searchstring,
+            contentType: 'application/json;charset=UTF-8'
+        }).done(function (sites) {
+            $.each(sites, function(index, site) {
+                console.log(site.category + ": " + site.name);
+            });
+            $("#statusSites").text("Antall steder funnet: " + sites.length);
+        }).fail(function () {
+            $("#statusSites").text("Feil ved uthenting av steder: " + status);
+        });
+    },
+
+     /**
+     * Retrieves all sites
+     */
+    getSitesAll: function () {
+        console.log("getSitesAll invoked");
+
+        return $.ajax({
+            type: 'GET',
+            url: '/sites',
+            data: 'json',
+            contentType: 'application/json;charset=UTF-8'
+        }).fail(function () {
+            console.log("sites fail");
+            // $("#statusSites").text("Feil ved uthenting av steder: " + status);
         });
     },
 

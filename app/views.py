@@ -20,13 +20,23 @@ def index():
 def add_site():
     if not request.json or not 'name' in request.json:
         abort(400)
-    site = request.json
+    siteAsJson = request.json
 
-    siteDb = Site(site['name'], site['category'], site['description'])
-    db.session.add(siteDb)
+    site = Site(siteAsJson['name'],
+                siteAsJson['category'],
+                siteAsJson['description'],
+                siteAsJson['x'],
+                siteAsJson['y'])
+    db.session.add(site)
     db.session.commit()
     #return 'ok'
-    return json.dumps({'success': True, 'name': site['name']}), 200, {'ContentType': 'application/json'}
+    return json.dumps({'success': True, 'name': siteAsJson['name']}), 200, {'ContentType': 'application/json'}
+
+@app.route('/sites', methods=['GET'])
+def get_sites():
+    query = db.session.query(Site.name, Site.category, Site.description, Site.x, Site.y).order_by(Site.name).all()
+    # query = Site.query.all()
+    return json.dumps([ row._asdict() for row in query ])
 
 @app.route('/shortestPath', methods=['POST'])
 def find_shortest_path():

@@ -6,7 +6,7 @@ GIB2.mapInitService = {
      */
     initMap: function () {
 
-    	// Instantiates map
+        // Instantiates map
         map = L.map('map');
 
         // Sets view
@@ -14,9 +14,9 @@ GIB2.mapInitService = {
 
         // -------------------------------------------------------------------------------------------------------------
         // Adds layers to map
-		// -------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // Adds an OpenStreetMap tile layer to map
-		var osmTileLayer = this.buildLayerOpenStreetMap();
+        var osmTileLayer = this.buildLayerOpenStreetMap();
         map.addLayer(osmTileLayer);
 
         // Adds a markers layer group
@@ -26,7 +26,7 @@ GIB2.mapInitService = {
         // -------------------------------------------------------------------------------------------------------------
         // Populates map with markers from sample data
         // -------------------------------------------------------------------------------------------------------------
-		this.addSiteMarkersToLayerGroup(markersLayerGroup);
+        this.addSiteMarkersToLayerGroup(markersLayerGroup);
 
         // -------------------------------------------------------------------------------------------------------------
         // Adds custom controls
@@ -38,9 +38,9 @@ GIB2.mapInitService = {
         this.addAdminControl();
         this.addShortestPathControl();
 
-		// -------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         // Adds mouse-click-listener
-		// -------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
         map.addEventListener('mousedown', function (ev) {
             var lat = ev.latlng.lat;
             var lng = ev.latlng.lng;
@@ -55,8 +55,8 @@ GIB2.mapInitService = {
     /**
      * Builds Open Street Map
      */
-	buildLayerOpenStreetMap: function() {
-		var osmUrlTemplate = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+    buildLayerOpenStreetMap: function () {
+        var osmUrlTemplate = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
         var tileLayerOptions = {};
         tileLayerOptions.minZoom = 0; // default 0
@@ -64,10 +64,10 @@ GIB2.mapInitService = {
         tileLayerOptions.attribution = "Map data © <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors";
 
         return L.tileLayer(osmUrlTemplate, tileLayerOptions);
-	},
+    },
 
     /**
-	 * Shows site on map
+     * Shows site on map
      * @param name
      * @param category
      * @param lon
@@ -79,7 +79,7 @@ GIB2.mapInitService = {
     },
 
     /**
-	 * Adds login control
+     * Adds login control
      * @returns {void|*}
      */
     addLoginControl: function () {
@@ -114,7 +114,7 @@ GIB2.mapInitService = {
     },
 
     /**
-	 * Adds admin control
+     * Adds admin control
      * @returns {void|*}
      */
     addAdminControl: function () {
@@ -145,7 +145,7 @@ GIB2.mapInitService = {
     },
 
     /**
-	 * Adds shortest path control
+     * Adds shortest path control
      * @returns {void|*}
      */
     addShortestPathControl: function () {
@@ -176,12 +176,12 @@ GIB2.mapInitService = {
     },
 
     /**
-	 * Adds a site marker search control (plugin)
+     * Adds a site marker search control (plugin)
      * @param markersLayerGroup
      * @returns {*}
      */
-	addSiteMarkerSearchControl: function(markersLayerGroup) {
-    	var siteMarkerSearchControl = new L.Control.Search({
+    addSiteMarkerSearchControl: function (markersLayerGroup) {
+        var siteMarkerSearchControl = new L.Control.Search({
             layer: markersLayerGroup,
             position: 'topright',
             initial: false,
@@ -191,27 +191,40 @@ GIB2.mapInitService = {
             autoType: false
         });
 
-    	map.addControl(siteMarkerSearchControl);
-	},
+        map.addControl(siteMarkerSearchControl);
+    },
 
-	addSiteMarkersToLayerGroup: function(markersLayerGroup) {
-    	// TODO: Sites should be retrieved from database
-		var sites = [
-            {"loc": [63.4269, 10.3969], "category": "Severdighet", "title": "Nidarosdomen"},
-            {"loc": [63.426935, 10.411155], "category": "Severdighet", "title": "Kristiansten Festning"},
-            {"loc": [63.447369, 10.454401], "category": "Severdighet", "title": "Ringve Museum"},
-            {"loc": [63.42052501, 10.35733889], "category": "Severdighet", "title": "Sverresborg Museum"}
-        ];
+    /**
+     * Adds site markers to layer group
+     * @param markersLayerGroup
+     */
+    addSiteMarkersToLayerGroup: function (markersLayerGroup) {
+        // Retrieves sites from database
+        var sites = GIB2.siteService.getSitesAll()
+            .done(function (sites) {
+                var sitesAsJson = JSON.parse(sites);
+                console.log("sites done, length: " + sitesAsJson.length);
 
-        for (i in sites) {
-            var title = sites[i].title;	//value searched
-            var category = sites[i].category;
-            var loc = sites[i].loc;		//position found
-            var marker = new L.Marker(new L.latLng(loc), {title: title}); //se property searched
-            marker.bindPopup("<b>" + title + "</b> (" + category + ")");
-            markersLayerGroup.addLayer(marker);
-        }
-	}
+                $.each(sitesAsJson, function (index, site) {
+                    var title = site.name;	//value searched
+                    var category = site.category;
+                    var loc = [site.x, site.y];		//position found
+                    var marker = new L.Marker(new L.latLng(loc), {title: site.name}); //se property searched
+                    marker.bindPopup("<b>" + title + "</b> (" + category + ")");
+                    markersLayerGroup.addLayer(marker);
+                });
+
+                /*
+                                $.each(sitesAsJson, function (index, site) {
+                    var location = [site.x, site.y];
+                    var marker = new L.Marker(new L.latLng(location), {title: site.name});
+                    marker.bindPopup("<b>" + site.name + "</b> (" + site.category + ")");
+                    markersLayerGroup.addLayer(marker);
+                });
+                 */
+
+            });
+    }
 }
 
 

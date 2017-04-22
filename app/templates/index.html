@@ -66,7 +66,8 @@
                 </div>
                 <input id="name" class="ui input" type="text" placeholder="Navn"><br />
                 <input id="description" class="ui input" type="text" placeholder="Beskrivelse"><br />
-                <input id="x" class="ui input" type="text" placeholder="x"><input class="ui input" id="y" type="text" placeholder="y"><br />
+                <input id="x" class="ui input" type="text" placeholder="x">
+                <input class="ui input" id="y" type="text" placeholder="y"><br />
                 <button id="adminAddBtn" class="ui button">Lagre</button><br />
                 <div id="statusSite"></div>
             </div>
@@ -75,7 +76,18 @@
                 Eksisterende steder
             </div>
             <div class="content">
-                Her vil det bli mulig å se detajer på steder, endre og slette de...
+                 <div class="ui selection dropdown">
+                    <input id="category" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Velg kategori</div>
+                    <div class="menu">
+                        <div class="item" data-value="sight">Severdighet</div>
+                        <div class="item" data-value="food">Spisested</div>
+                        <div class="item" data-value="accommodation">Overnatting</div>
+                    </div>
+                     <input id="name" class="ui input" type="text" placeholder="Søk på navn">
+                     <div id="sites" />
+                </div>
             </div>
         </div>
     </script>
