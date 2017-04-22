@@ -3,6 +3,7 @@ GIB2.siteService = {
      * Adds site
      */
     addSite: function () {
+
         console.log("addSite invoked");
 
         name = $("#name").val();
@@ -11,6 +12,34 @@ GIB2.siteService = {
         description = $("#description").val();
         x = $("#x").val();
         y = $("#y").val();
+
+        if (name === undefined || name === null || name.trim().length === 0) {
+
+            $("#statusSite").addClass("statusError");
+            $("#statusSite").text("Navn må fylles ut");
+            return;
+        }
+
+        if (category === undefined || category === null || category.trim().length === 0) {
+
+            $("#statusSite").addClass("statusError");
+            $("#statusSite").text("Kategori må fylles ut");
+            return;
+        }
+
+        if (description === undefined || description === null || description.trim().length === 0) {
+
+            $("#statusSite").addClass("statusError");
+            $("#statusSite").text("Beskrivelse må fylles ut");
+            return;
+        }
+        if (x === undefined || x === null || x.trim().length === 0 || y === undefined || y === null || y.trim().length === 0){
+            $("#statusSite").addClass("statusError");
+            $("#statusSite").text("Ugyldige koordinater.");
+            return;
+        }
+
+
         site = {
             name: name,
             category: category,
@@ -28,13 +57,14 @@ GIB2.siteService = {
             // dataType: "text",
             contentType: 'application/json;charset=UTF-8'
         }).done(function (status) {
+            $("#statusSite").addClass(statusInfo);
             $("#statusSite").text("Sted er lagret, status: " + status);
         }).fail(function () {
             $("#statusSite").text("Feil ved lagring, status: " + status);
         });
     },
 
-     /**
+    /**
      * Retrieves sites for category
      */
     getSitesForCategoryAndSearchString: function (category, searchstring) {
@@ -45,7 +75,7 @@ GIB2.siteService = {
             url: '/sites/' + category + '/' + searchstring,
             contentType: 'application/json;charset=UTF-8'
         }).done(function (sites) {
-            $.each(sites, function(index, site) {
+            $.each(sites, function (index, site) {
                 console.log(site.category + ": " + site.name);
             });
             $("#statusSites").text("Antall steder funnet: " + sites.length);
@@ -54,7 +84,7 @@ GIB2.siteService = {
         });
     },
 
-     /**
+    /**
      * Retrieves all sites
      */
     getSitesAll: function () {
@@ -75,7 +105,7 @@ GIB2.siteService = {
      * Validates site
      * @param site
      */
-    validateSite: function(site) {
-    // TODO:
+    validateSite: function (site) {
+        // TODO:
     }
 };
