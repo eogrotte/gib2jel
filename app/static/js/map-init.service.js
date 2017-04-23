@@ -156,8 +156,24 @@ GIB2.mapInitService = {
 
                 var $deleteButton = $adminContainer.find("#adminDeleteBtn");
                 $deleteButton.on("click", function (event) {
-                    // alert("Nå skal det lagres!");
+
                     var name = $("#nameDelete").val();
+                    GIB2.siteService.getSitesAll()
+                        .done(function (sites) {
+                            GIB2.sites = sites;
+
+                            var isSiteFound = false;
+                            var index = 0;
+                            var site = undefined;
+                            while (!isSiteFound && index < sites.length) {
+                                site = sites[index];
+                                if (site.name == name) {
+                                    map.setView([site.x, site.y], 13);
+                                    isSiteFound = true;
+                                }
+                                index++;
+                            }
+                        });
                     GIB2.siteService.deleteSite(name);
                 });
 
@@ -203,7 +219,6 @@ GIB2.mapInitService = {
                 $zoomToMarkerButton.on("click", function () {
                      var siteName = $("#nameSearch").val();
 
-                    //var coordinates = GIB2.siteService.getSiteCoord(siteName);
                     GIB2.siteService.getSitesAll()
                         .done(function (sites) {
                             GIB2.sites = sites;
