@@ -149,7 +149,7 @@ GIB2.mapInitService = {
                         console.log(lng);
                         document.getElementById("x").value = lat;
                         document.getElementById("y").value = lng;
-                        });
+                    });
                     $("#x").prop('disabled', true);
                     $("#y").prop('disabled', true);
                 });
@@ -199,6 +199,32 @@ GIB2.mapInitService = {
                     GIB2.pathService.findShortestPath();
                 });
 
+                var $zoomToMarkerButton = $shortestpathContainer.find("#nameSearchButton");
+                $zoomToMarkerButton.on("click", function () {
+                     var siteName = $("#nameSearch").val();
+
+                    //var coordinates = GIB2.siteService.getSiteCoord(siteName);
+                    GIB2.siteService.getSitesAll()
+                        .done(function (sites) {
+                            GIB2.sites = sites;
+
+                            var isSiteFound = false;
+                            var index = 0;
+                            var site = undefined;
+                            while (!isSiteFound && index < sites.length) {
+                                site = sites[index];
+                                if (site.name == siteName) {
+                                    map.setView([site.x, site.y], 16);
+                                    isSiteFound = true;
+                                }
+                                index++;
+                            }
+                        });
+                    //L.map.setView([x, y], 13);
+
+
+                });
+
                 return $shortestpathContainer[0];
             },
 
@@ -232,17 +258,19 @@ GIB2.mapInitService = {
     /**
      * Updates sites datalist and markers
      */
-    updateSitesDatalistAndMarkers: function() {
+    updateSitesDatalistAndMarkers: function () {
         var that = this;
 
         GIB2.siteService.getSitesAll()
             .done(function (sites) {
+                GIB2.sites = sites;
                 $("#json-sites-datalist").empty();
-                $.each(sites, function(index, site) {
+                $.each(sites, function (index, site) {
                     // Create a new <option> element.
                     var $option = $('<option />').val(site.name);
                     $("#json-sites-datalist").append($option);
                 });
+
 
                 that.addSiteMarkersToLayerGroup(sites);
             });
