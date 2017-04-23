@@ -139,8 +139,7 @@ GIB2.mapInitService = {
 
                 var $coordButton = $adminContainer.find("#adminFindCoord");
                 $coordButton.on("click", function () {
-                    alert("Trykk på punktet ditt i kartet, og trykk deretter på lagre-knappen for å lagre punktet ditt." +
-                        " Hvis du trykker på feil punkt i kartet, kan du trykke på velg punkt-koordinater igjen.");
+
                     map.addOneTimeEventListener('mousedown', function (ev) {
                         var lat = ev.latlng.lat;
                         var lng = ev.latlng.lng;
