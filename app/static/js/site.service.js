@@ -24,12 +24,7 @@ GIB2.siteService = {
             $("#statusSite").text("Kategori må fylles ut");
             return;
         }
-
-        if (description === undefined || description === null || description.trim().length === 0) {
-            $("#statusSite").addClass("statusError");
-            $("#statusSite").text("Beskrivelse må fylles ut");
-            return;
-        }
+        
         if (x === undefined || x === null || x.trim().length === 0 || y === undefined || y === null || y.trim().length === 0){
             $("#statusSite").addClass("statusError");
             $("#statusSite").text("Ugyldige koordinater.");
