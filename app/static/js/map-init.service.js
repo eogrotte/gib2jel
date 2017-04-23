@@ -13,6 +13,16 @@ GIB2.mapInitService = {
         map.setView(new L.LatLng(63.4269, 10.3969), 13);
 
         // -------------------------------------------------------------------------------------------------------------
+        // Adds custom controls
+        // -------------------------------------------------------------------------------------------------------------
+        // Adds search control (top right), on title
+        // this.addSiteMarkerSearchControl();
+
+        this.addLoginControl();
+        this.addAdminControl();
+        this.addShortestPathControl();
+
+        // -------------------------------------------------------------------------------------------------------------
         // Adds layers to map
         // -------------------------------------------------------------------------------------------------------------
         // Adds an OpenStreetMap tile layer to map
@@ -20,23 +30,13 @@ GIB2.mapInitService = {
         map.addLayer(osmTileLayer);
 
         // Adds a markers layer group
-        var markersLayerGroup = new L.LayerGroup();	//layer contain searched elements
-        map.addLayer(markersLayerGroup);
+        GIB2.markersLayerGroup = new L.LayerGroup();
+        map.addLayer(GIB2.markersLayerGroup);
 
         // -------------------------------------------------------------------------------------------------------------
-        // Populates map with markers from sample data
+        // Updates sites datalist element and repopulates markers
         // -------------------------------------------------------------------------------------------------------------
-        this.addSiteMarkersToLayerGroup(markersLayerGroup);
-
-        // -------------------------------------------------------------------------------------------------------------
-        // Adds custom controls
-        // -------------------------------------------------------------------------------------------------------------
-        // Adds search control (top right), on title
-        this.addSiteMarkerSearchControl(markersLayerGroup);
-
-        this.addLoginControl();
-        this.addAdminControl();
-        this.addShortestPathControl();
+        this.updateSitesDatalistAndMarkers();
 
         // -------------------------------------------------------------------------------------------------------------
         // Adds mouse-click-listener
@@ -215,7 +215,7 @@ GIB2.mapInitService = {
      * @param markersLayerGroup
      * @returns {*}
      */
-    addSiteMarkerSearchControl: function (markersLayerGroup) {
+    addSiteMarkerSearchControl: function () {
         var siteMarkerSearchControl = new L.Control.Search({
             layer: markersLayerGroup,
             position: 'topright',
@@ -230,25 +230,41 @@ GIB2.mapInitService = {
     },
 
     /**
-     * Adds site markers to layer group
-     * @param markersLayerGroup
+     * Updates sites datalist and markers
      */
-    addSiteMarkersToLayerGroup: function (markersLayerGroup) {
-        // Retrieves sites from database
-        var sites = GIB2.siteService.getSitesAll()
-            .done(function (sites) {
-                var sitesAsJson = JSON.parse(sites);
-                console.log("sites done, length: " + sitesAsJson.length);
+    updateSitesDatalistAndMarkers: function() {
+        var that = this;
 
-                $.each(sitesAsJson, function (index, site) {
-                    var title = site.name;	//value searched
-                    var category = site.category;
-                    var loc = [site.x, site.y];		//position found
-                    var marker = new L.Marker(new L.latLng(loc), {title: site.name}); //se property searched
-                    marker.bindPopup("<b>" + title + "</b> (" + category + ")");
-                    markersLayerGroup.addLayer(marker);
+        GIB2.siteService.getSitesAll()
+            .done(function (sites) {
+                $("#json-sites-datalist").empty();
+                $.each(sites, function(index, site) {
+                    // Create a new <option> element.
+                    var $option = $('<option />').val(site.name);
+                    $("#json-sites-datalist").append($option);
                 });
+
+                that.addSiteMarkersToLayerGroup(sites);
             });
+    },
+
+    /**
+     * Adds site markers to layer group
+     * @param sites
+     */
+    addSiteMarkersToLayerGroup: function (sites) {
+        console.log("addSiteMarkersToLayerGroup invoked");
+        GIB2.markersLayerGroup.clearLayers();
+
+        var that = this;
+        $.each(sites, function (index, site) {
+            var location = [site.x, site.y];
+            var marker = new L.Marker(new L.latLng(location), {title: site.name});
+            marker.bindPopup("<b>" + site.name + "</b> (" + site.category + ")<p />" + site.description);
+            GIB2.markersLayerGroup.addLayer(marker);
+        });
+
+        map.invalidateSize();
     }
 }
 

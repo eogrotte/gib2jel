@@ -77,27 +77,9 @@
                 Slett sted
             </div>
             <div class="content">
-                <input id="nameDelete" class="ui input" type="text" placeholder="Navn"><br />
+                <input id="nameDelete" type="text" class="ui input" list="json-sites-datalist" placeholder="Navn...">
                 <button id="adminDeleteBtn" class="ui button">Slett</button><br />
                 <div id="statusDeleteSite"></div>
-            </div>
-            <div class="title">
-                <i class="dropdown icon"></i>
-                Eksisterende steder
-            </div>
-            <div class="content">
-                 <div class="ui selection dropdown">
-                    <input id="category" type="hidden">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Velg kategori</div>
-                    <div class="menu">
-                        <div class="item" data-value="sight">Severdighet</div>
-                        <div class="item" data-value="food">Spisested</div>
-                        <div class="item" data-value="accommodation">Overnatting</div>
-                    </div>
-                     <input id="name" class="ui input" type="text" placeholder="Søk på navn">
-                     <div id="sites" />
-                </div>
             </div>
         </div>
     </script>
@@ -106,14 +88,22 @@
         <div class="ui styled accordion leaflet-control" style="width: 200px">
             <div class="title">
                 <i class="dropdown icon"></i>
+                Finn steder
+            </div>
+            <div class="content">
+                <input id="nameSearch" type="text" class="ui input" list="json-sites-datalist" placeholder="Søk på navn...">
+            </div>
+            <div class="title">
+                <i class="dropdown icon"></i>
                 Finn korteste vei
             </div>
             <div class="content">
-                <input id="siteFrom" class="ui input" type="text" placeholder="Fra sted"><br />
-                <input id="siteTo" class="ui input" type="text" placeholder="Til sted"><br />
+                <input id="siteFrom" type="text" class="ui input" list="json-sites-datalist" placeholder="Fra sted...">
+                <input id="siteTo" type="text" class="ui input" list="json-sites-datalist" placeholder="Til sted...">
                 <button id="shortestPathBtn" class="ui button">Finn korteste vei</button>
                 <div id="statusPath"></div>
             </div>
+            <datalist id="json-sites-datalist"></datalist>
         </div>
     </script>
 

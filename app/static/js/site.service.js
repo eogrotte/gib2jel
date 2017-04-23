@@ -14,21 +14,18 @@ GIB2.siteService = {
         y = $("#y").val();
 
         if (name === undefined || name === null || name.trim().length === 0) {
-
             $("#statusSite").addClass("statusError");
             $("#statusSite").text("Navn må fylles ut");
             return;
         }
 
         if (category === undefined || category === null || category.trim().length === 0) {
-
             $("#statusSite").addClass("statusError");
             $("#statusSite").text("Kategori må fylles ut");
             return;
         }
 
         if (description === undefined || description === null || description.trim().length === 0) {
-
             $("#statusSite").addClass("statusError");
             $("#statusSite").text("Beskrivelse må fylles ut");
             return;
@@ -38,7 +35,6 @@ GIB2.siteService = {
             $("#statusSite").text("Ugyldige koordinater.");
             return;
         }
-
 
         site = {
             name: name,
@@ -58,23 +54,25 @@ GIB2.siteService = {
             contentType: 'application/json;charset=UTF-8'
         }).done(function (status) {
             $("#statusSite").addClass("statusInfo");
-            $("#statusSite").text("Sted er lagret, status: " + status);
-        }).fail(function () {
-            $("#statusSite").text("Feil ved lagring, status: " + status);
+            $("#statusSite").text("Sted er lagret");
+            GIB2.mapInitService.updateSitesDatalistAndMarkers();
+            // TODO: Add marker
+        }).fail(function (xhr, status, error) {
+            $("#statusSite").addClass("statusError");
+            $("#statusSite").text("Feil ved lagring: " + xhr.responseText);
         });
     },
 
     deleteSite: function(name) {
+        var that = this;
         $.ajax({
             type: 'GET',
             url: '/sites/delete/' + name
-            // data: JSON.stringify(site),
-            // dataType: "text",
-            // contentType: 'application/json;charset=UTF-8'
-        }).done(function (status) {
+        }).done(function (response) {
             $("#statusDeleteSite").addClass("statusInfo");
-            $("#statusDeleteSite").text("Sted er slettet, status: " + status);
-        }).fail(function () {
+            $("#statusDeleteSite").text("Stedet \"" + name + "\" er slettet.");
+            GIB2.mapInitService.updateSitesDatalistAndMarkers();
+        }).fail(function (xhr, status, error) {
             $("#statusDeleteSite").addClass("statusError");
             $("#statusDeleteSite").text("Feil ved sletting, status: " + status);
         });
@@ -95,7 +93,7 @@ GIB2.siteService = {
                 console.log(site.category + ": " + site.name);
             });
             $("#statusSites").text("Antall steder funnet: " + sites.length);
-        }).fail(function () {
+        }).fail(function (xhr, status, error) {
             $("#statusSites").text("Feil ved uthenting av steder: " + status);
         });
     },
@@ -111,8 +109,8 @@ GIB2.siteService = {
             url: '/sites',
             data: 'json',
             contentType: 'application/json;charset=UTF-8'
-        }).fail(function () {
-            console.log("sites fail");
+        }).fail(function (xhr, status, error) {
+            console.log("getSitesAll failed, status: " + status);
             // $("#statusSites").text("Feil ved uthenting av steder: " + status);
         });
     },
